@@ -1,4 +1,4 @@
-This is the c++ code for draft paper "Linear Time Parallel Graph Trimming" . The experiments test existing trimming method used by Hong's algorithm (so-called AC1Trim), and our new trimming algorithm (so-called AC6Trim). 
+This is the c++ code for the draft paper "Linear Time Parallel Graph Trimming". The experiments test the existing trimming method used by Hong's algorithm (so-called AC1Trim), and our new trimming algorithm (so-called AC6Trim). 
 
 # The Structure of the Folder
 
@@ -10,11 +10,11 @@ This is the c++ code for draft paper "Linear Time Parallel Graph Trimming" . The
 
 1. ```~/ours-hong-ufscc/tools/``` : include tools for converting common graph to CSR format.
 
-1. ```~/ours-hong-ufscc/tools``` : include the test results on my laptop.
+1. ```~/ours-hong-ufscc/tools```: include the test results on my laptop.
 
-1. ```~/experiments/``` : inlude all the testing scripts.
+1. ```~/experiments/```: include all the testing scripts.
 
-1. ```~/experiments/graphs``` : inlude implicit BEEM model checking graphs. The explicit graphs are so large that can not uploaded. But they are easy to download from correspounding websites.
+1. ```~/experiments/graphs```: include implicit BEEM model checking graphs. The explicit graphs are so large that can not be uploaded. But they are easy to download from corresponding websites.
 
 # Compiling and Executing
 
@@ -29,24 +29,24 @@ all of the options.
 * method 4: the existing AC1Trim which is from Hong's algorithm (Algorithm 2 in paper with only removing vertices without outgoing edges). 
 It is locaed in the file ```~/ours-hong-ufscc/src/scc_trim1.cc```.
 
-* method 6: our sequential AC6Trim (Algorithm 3 in paper). 
+* method 6: our sequential AC6Trim (Algorithm 3 in the paper). 
 It is locaed in the file ```~/ours-hong-ufscc/src/scc_our_fast_trim.cc```.
 
-* method 9: our parallel AC6Trim (Algorithm 5 in paper). 
+* method 9: our parallel AC6Trim (Algorithm 5 in the paper). 
 It is locaed in the file ```~/ours-hong-ufscc/src/scc_our_fast_trim_pra-4.cc```.
 
 
 # Executing with Script
 
-1. All the experiments can run with a script ```~/experiments/our-benchmark.sh```. Before running, all the path of tested graphs should be set. 
+1. All the experiments can run with a script ```~/experiments/our-benchmark.sh```. Before running, all the paths of tested graphs should be set. 
 
-1. The experiments result is recored in file ```~/experiments/results/our-results.csv```. 
+1. The experiment results are recorded in file ```~/experiments/results/our-results.csv```. 
 
-1. My testing results are locaed in file ```~/experiments/results/our-results-11-1-2019.csv```. 
+1. My testing results are located in file ```~/experiments/results/our-results-11-1-2019.csv```. 
 
 
 # Graph Conversion Tool
-There is a graph conversion utility to convert adjacency list or edge list graph files into the binary format used by current application. 
+There is a graph conversion utility to convert the adjacency list or edge list graph files into the binary format used by the current application. 
 
 * To execute this tool, in the directory ```~/ours-hong-ufscc/tools/```, run:
 

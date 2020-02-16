@@ -1,0 +1,12 @@
+Name,# Nodes,# Edges,Diameter,# SCC,Max SCC Size,# Size-1 SCC,# Size-2 SCC,# Size-3 SCC,filename,link
+cambridge.6,3354295,9483191,418,8413,,8412,0,0,-cambridge.6.bin,
+bakery.6,,,176,,,,,,-bakery.6.bin,
+leader-filters.7,,,71,,,,,,-leader-filters.7.bin,
+dbpedia,,,67,,,,,,dbpedia.bin,http://konect.uni-koblenz.de/networks/dbpedia-all
+baidu,,,20,,,,,,baidu.bin,
+livej,,,19,,,,,,livej.bin,
+pokec,,,14,,,,,,pokec.bin,
+wiki-talk-en,,,9,,,,,,wiki_talk_en.bin,http://konect.uni-koblenz.de/networks/wiki_talk_en
+*,,,,,,,,,,
+,,,10,,,,,,wiki-link-en.bin,http://konect.uni-koblenz.de/networks/wikipedia_link_en
+,,,,,,,,,dbpedia-link.bin,

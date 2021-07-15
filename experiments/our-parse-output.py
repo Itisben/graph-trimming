@@ -1,17 +1,22 @@
-
 import sys
 import re
 import os.path
+import os.stat
 import time
 import datetime
 import csv
 import shutil
+
+
+COLUMN="model,N,M,workers,alg,init-time,insert-num,insert-time,remove-num,remove-time,cnt-Vs,cnt-Vp,cnt-S,cnt-tag,date"
+
 
 INFILE      = ""
 FAILFOLDER  = ""
 OUTFILE     = ""
 CORRECTFILE = ""
 dict        = {}
+
 
 def exitparser():
     # try to print the contents to an output file
@@ -52,32 +57,23 @@ def parseerror(line, regex):
         print "ERROR: {}".format(line)
         exitparser()
 
-
+ 
 def parseline(line):
     parseerror(line, r"Error")
-    # LTSmin output
-    #parsevar("time",         line, r"Total exploration time ([\S]+) sec")
-    parsevar("tstates",      line, r"Explored ([\S]+) states [\S]+ transitions, fanout: [\S]+")
-    parsevar("ttrans",       line, r"Explored [\S]+ states ([\S]+) transitions, fanout: [\S]+")
-    parsevar("sccs",         line, r"total scc count: [\s]+ ([\S]+)")
-    # Offline output
-    #parsevar("mstime",       line, r"running_time\(ms\)=([\S]+)") # TODO: divide by 1000 or so
-    #parsevar("sccs",         line, r"Total # SCCs = ([\S]+)")
-    parsevar("tstates",      line, r"total states count: [\s]+ ([\S]+)")
-    parsevar("ttrans",       line, r"total transitions count: [\s]+ ([\S]+)")
-    parsevar("initstates",   line, r"initial states count: [\s]+ ([\S]+)")
-    #parsevar("N",            line, r"N = ([\S]+), M = [\S]+")
-    #parsevar("M",            line, r"N = [\S]+, M = ([\S]+)")
-    # both outputs
-    parsevar("ustates",      line, r"unique states count: [\s]+ ([\S]+)")
-    parsevar("utrans",       line, r"unique transitions count:[\s]+ ([\S]+)")
-    parsevar("selfloop",     line, r"self-loop count: [\s]+ ([\S]+)")
-    parsevar("claimdead",    line, r"claim dead count: [\s]+ ([\S]+)")
-    parsevar("claimfound",   line, r"claim found count: [\s]+ ([\S]+)")
-    parsevar("claimsuccess", line, r"claim success count: [\s]+ ([\S]+)")
 
-    # ours
-    parsevar("mstime",       line, r"running_time\(ms\)=([\S]+)") # TODO: divide by 1000 or so
+    
+    parsevar("N",       line, r"# of vertices: ([\S]+)") 
+    parsevar("M",       line, r"# of (all) edges: ([\S]+)") 
+    parsevar("M",       line, r"# of (all) edges: ([\S]+)") ]
+
+
+
+
+    
+
+    parsevar("insert-num",       line, r"# of edges to insert: ([\S]+)")
+    parsevar("insert-num",       line, r"# of edges to insert: ([\S]+)")
+
     parsevar("delete",       line, r"Total Delete Vertex #: ([\S]+)")
     parsevar("N",            line, r"N = ([\S]+), M = [\S]+")
     parsevar("M",            line, r"N = [\S]+, M = ([\S]+)")
@@ -86,8 +82,15 @@ def parseline(line):
     parsevar("size2",         line, r"Total # Size-2 SCCs = ([\S]+)")
     parsevar("size3",         line, r"Total # Size-3 SCCs = ([\S]+)")
     parsevar("trimrepeat",    line, r"trim-repeat-time: ([\S]+)")
+   
     parsevar("trimdelete",    line, r"Total Delete Vertex #: ([\S]+)")
+    parsevar("traveledge",  line,  r"total-traversed-e #: ([\S]+)")
     parsevar("maxscc",        line, r"Max SCC size = ([\S]+)")
+    parsevar("parstep",     line, r"my PARALLEL_STEP: ([\S]+)")
+    parsevar("push",     line, r"Max stack push #: ([\S]+)")
+    parsevar("es",     line, r"my SAMPLE_EDGE: ([\S]+)")
+    parsevar("vs",     line, r"my SAMPLE_VER: ([\S]+)")
+
 
 def afterparse():
     global dict
@@ -119,28 +122,13 @@ def checkitemcorrect(correct, item):
         print "ERROR: {} = {} is incorrect (should be {}) ".format(item, dict[item], correct)
         exitparser()
 
-
-def checkcorrect():
-    global dict, CORRECTFILE
-    # only check if we have a correct file
-    if (os.path.isfile(CORRECTFILE)):
-        f = open(CORRECTFILE, 'rb')
-        reader = csv.DictReader(f)
-        for row in reader:
-            if (row["model"] == dict["model"]):
-                # check if variables are the same
-                checkitemcorrect(row["sccs"], "sccs")
-                checkitemcorrect(row["utrans"], "utrans")
-                checkitemcorrect(row["ustates"], "ustates")
-
-
 def parsefile(file):
     f = open(file, 'r')
     for line in f:
         parseline(line)
     f.close()
     afterparse()
-    checkcorrect()
+
 
 
 def trytoprint(varname):
@@ -149,24 +137,16 @@ def trytoprint(varname):
         return dict.get(varname)
     else:
         return "-1";
-    # else:
-    #     if (varname == "time" or 
-    #         varname == "sccs" or 
-    #         varname == "utrans" or 
-    #         varname == "ustates") :
-    #         print "ERROR: cannot find {}".format(varname)
-    #         exitparser()
-    #     if (dict["alg"] != "ufscc"):
-    #         return "-1"
-    #     else:
-    #         print "ERROR: cannot find {}".format(varname)
-    #         exitparser()
-
 
 def printtofile(outfile):
     # First line of OUTFILE should contain comma-separated info on column names
     global dict
-    f = open(outfile, 'r+')
+    if os.path.exists(outfile):
+        f = open(outfile, 'r+')
+        f.write(COLUMN+"\n") #write the column
+    else:
+        f = open(outfile, 'r+')
+
     s = f.readline().strip()
     names = s.split(",")
     output  = ""
@@ -230,3 +210,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

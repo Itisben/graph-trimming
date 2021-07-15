@@ -1,0 +1,20 @@
+my PARALLEL_STEP: 4096
+running with 8 threads
+N = 124836180, M = 1806067135	graph loading time=98974.773000
+reverse edge creation time=0.000000
+set pin CPU
+Running Method 9 : *Our Concurrent AC6 Trim
+Total Delete Vertex #: 124836180
+total-traversed-e #: 1814083766
+Max stack push #: 608
+[8]running_time(ms)=62630.199000
+Total # SCCs = 0
+Total # Size-1 SCCs = 0
+Total # Size-2 SCCs = 0
+Total # Size-3 SCCs = 0
+Max SCC size = 0
+max degout = 3615
+max degin = 4223
+total degout = 1806067135.000000, average = 14.467498
+total degin = 3612134270.000000, average = 28.934995
+average degree = 43.402493

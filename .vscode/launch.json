@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "g++ scc-trim debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/ours-hong-ufscc/scc",
+            "args": [
+                "~/Documents/TestTrim/dbpedia.bin",
+                "8",
+                "10",
+                "-es",
+                "10"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            //"preLaunchTask": "make debug",
+            "miDebuggerPath": "/usr/bin/gdb"
+        }
+    ]
+}
